@@ -16,8 +16,16 @@
 
     <div class="col-md-12">
         <div class="d-flex justify-content-between">
+            <div class="flex items-center">
+                <select class="form-control">
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
             @livewire('crear-programas')
-            <div class="input-group" style="height: 42px; margin-left:20px;">
+            <div class="input-group" style="height: 42px;">
                 <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
                 <input type="text" class="form-control" wire:model="buscar" placeholder="Buscar programa" >
             </div>

@@ -1,6 +1,6 @@
 <div>
     {{-- Crear programa  --}}
-    <a href="#" class="btn btn-primary mr-3" data-bs-toggle="modal" data-bs-target="#crearPrograma">Crear</a>
+    <a href="#" class="btn btn-primary mx-2" data-bs-toggle="modal" data-bs-target="#crearPrograma">Crear</a>
 
     <x-modal>
         <x-slot name="idModal">
