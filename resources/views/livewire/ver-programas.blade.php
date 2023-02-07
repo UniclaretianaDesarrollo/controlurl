@@ -107,22 +107,30 @@
                                 </div>
                             </td>
                             <td class="align-middle text-center text-sm">
-                                <span class="badge badge-sm bg-gradient-{{$programa->estado==1?"success":"danger"}}">{{$programa->estado==1?"Activo":"Inactivo"}}</span>
+                                <span class="badge badge-sm bg-gradient-{{$programa->estado==1?"success":"danger"}}" wire:click="$emit('jsCambiarEstado',{{$programa}})" style="cursor: pointer;" >{{$programa->estado==1?"Activo":"Inactivo"}}</span>
                             </td>
                             <td class="align-middle text-center">
                                 {{-- <span class="text-secondary text-xs font-weight-bold">{{ucwords(Date::create($programa->created_at)->format('d, m'.'/'. 'Y' .' '.'h:i:s A'))}}</span> --}}
                                 <span class="text-secondary text-xs font-weight-bold">{{ucwords(Date::create($programa->created_at)->format('d, m'.'/'. 'Y'))}}</span>
                             </td>
                             <td class="align-middle">
-                                <a class="text-secondary font-weight-bold text-xs">
+                                <a class="text-secondary font-weight-bold text-xs iconoEliminar" wire:click="$emit('jsEliminarPrograma', {{$programa}})" style="cursor: pointer;">
                                     <i class="fas fa-trash"></i>
-                                    {{-- {{$programa->estado==0?"Activar ":"Inactivar"}} --}}
                                 </a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+                
             </table>
+            {{-- esto nos ayuda a que se cargen los programas y si este no tiene mas de 10, no se hace paginacion --}}
+            @if ($programas->hasPages())
+                <nav aria-label="Page navigation example" >
+                    <ul class="pagination justify-content-center">
+                        {{$programas->links()}}
+                    </ul>
+                </nav>
+            @endif
         @else
             @if ($vacio)
                 <div class="text-center p-3">
@@ -134,5 +142,59 @@
                 </div>
             @endif
         @endif
+        
     </x-tabla>
+
+    @push('js')
+        {{-- <script>
+            Livewire.restart();
+        </script> --}}
+        <script>
+            Livewire.on('jsCambiarEstado', programa => {
+                var estado = programa.estado==1 ? "desactivar" : "activar";
+                var estadoMensaje = programa.estado==1 ? "desactivado" : "activado";
+                Swal.fire({
+                title: 'Cambiar estado del programa',
+                text: `¿Deseas ${estado} el programa?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    Swal.fire(
+                    `${programa.estado==1 ? "Desactivado":"Activado"}`,
+                    `Se ha ${estadoMensaje} el programa correctamente`,
+                    'success'
+                    )
+                    Livewire.emitTo('ver-programas','cambiarEstado', programa.id);
+                }
+                })
+            });
+
+            Livewire.on('jsEliminarPrograma', programa => {
+                Swal.fire({
+                title: 'Eliminar programa',
+                text: '¿Deseas eliminar este programa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Eliminado',
+                        'Se ha eliminado exitosamente',
+                        'success'
+                    )
+                    Livewire.emitTo('ver-programas','eliminarEstado', programa.id);
+                }
+                })
+                
+            });
+        </script>
+    @endpush
 </div>

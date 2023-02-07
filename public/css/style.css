@@ -39,3 +39,7 @@ textarea.form-control {
 .titulo:hover  {
     color: #F4C005 !important;
 }
+
+.iconoEliminar:hover {
+    color: red !important;
+}

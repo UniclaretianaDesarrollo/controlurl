@@ -586,6 +586,8 @@
   @yield('script')
   
   @livewireScripts
+
+  @stack('js')
 </body>
 
 </html>
