@@ -91,7 +91,9 @@
                             <td>
                                 <div class="d-flex px-2 py-1">
                                     <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="mb-0 text-sm" style="word-break: break-all;">{{$programa->nombre}}</h6>
+                                        <h6 class="mb-0 text-sm" style="word-break: break-all; text-overflow: ellipsis;">
+                                            @livewire('modificar-programas', ['programa' => $programa], key($programa->id))
+                                        </h6>
                                         <p class="text-xs text-secondary mb-0" style="word-break: break-all;">{{$programa->nombreAbreviado}}</p>
                                     </div>
                                 </div>
@@ -108,15 +110,13 @@
                                 <span class="badge badge-sm bg-gradient-{{$programa->estado==1?"success":"danger"}}">{{$programa->estado==1?"Activo":"Inactivo"}}</span>
                             </td>
                             <td class="align-middle text-center">
-                                <span class="text-secondary text-xs font-weight-bold">{{ucwords(Date::create($programa->created_at)->format('d, m'.'/'. 'Y' .' '.'h:i:s A'))}}</span>
+                                {{-- <span class="text-secondary text-xs font-weight-bold">{{ucwords(Date::create($programa->created_at)->format('d, m'.'/'. 'Y' .' '.'h:i:s A'))}}</span> --}}
+                                <span class="text-secondary text-xs font-weight-bold">{{ucwords(Date::create($programa->created_at)->format('d, m'.'/'. 'Y'))}}</span>
                             </td>
                             <td class="align-middle">
-                                <a style="cursor: pointer;" class="text-secondary font-weight-bold text-xs">
-                                    Editar
-                                </a>
-                                |
-                                <a href="#" class="text-secondary font-weight-bold text-xs">
-                                    {{$programa->estado==0?"Activar ":"Inactivar"}}
+                                <a class="text-secondary font-weight-bold text-xs">
+                                    <i class="fas fa-trash"></i>
+                                    {{-- {{$programa->estado==0?"Activar ":"Inactivar"}} --}}
                                 </a>
                             </td>
                         </tr>

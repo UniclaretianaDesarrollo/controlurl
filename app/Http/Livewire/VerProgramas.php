@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class VerProgramas extends Component
 {
-    public $buscar;
+    public $buscar, $programa;
     public $variableOrdenar = "id";
     public $tipoOrden = "desc";
 
@@ -36,5 +36,9 @@ class VerProgramas extends Component
         } else {
             $this->variableOrdenar=$variable;
         }
+    }
+
+    public function editar(programas $programa){
+        $this->programa = $programa;
     }
 }

@@ -35,3 +35,7 @@ textarea.form-control {
     border-color: #e74a3b !important;
     padding-right: calc(1.5em + 0.75rem) !important;
 }
+
+.titulo:hover  {
+    color: #F4C005 !important;
+}
