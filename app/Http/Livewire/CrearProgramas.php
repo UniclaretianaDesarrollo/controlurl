@@ -58,9 +58,6 @@ class CrearProgramas extends Component
                 'descripcionPrograma'=>$this->descripcionPrograma,
             ]);
             
-            // Llamamos a reste para que se quiten los datos que quedan en el modal
-            $this->reset();
-            
             //para cerrar el modal
             $this->dispatchBrowserEvent('jsCerrarModalCrear'); 
 
@@ -68,11 +65,14 @@ class CrearProgramas extends Component
             $this->emitTo('ver-programas','actualizarlistaprograma');
 
             // para llamar a la alerta 
-            $this->dispatchBrowserEvent('alert');
+            $this->dispatchBrowserEvent('alert', '¡Excelente!-Se ha creado el programa '.$this->nombre.' satisfactoriamente-success');
 
-        } catch (\Throwable $th) {
+            // Llamamos a reste para que se quiten los datos que quedan en el modal
             $this->reset();
-
+        
+        } catch (\Throwable $th) {
+            $this->dispatchBrowserEvent('alert', 'Error en la creación del programa-'.$th.'-danger');
+            $this->reset();
         }
         
     }

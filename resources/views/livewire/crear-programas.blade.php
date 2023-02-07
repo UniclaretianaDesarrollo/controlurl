@@ -71,23 +71,8 @@
     </x-modal> 
 
     @section('script')
-    <x-alerta>
-        <x-slot name="titulo">
-            ¡Excelente!
-        </x-slot>
-        Se ha agregado el programa exitosamente
-        <x-slot name="icono">
-            success
-        </x-slot>
-    </x-alerta>
+    <x-alerta></x-alerta>
     <script>
-        // window.addEventListener('alert', function () {
-        //     Swal.fire(
-        //     'Muy bien',
-        //     'Se ha agregado el programa exitosamente',
-        //     'success'
-        //     )
-        // });
         window.addEventListener('jsCerrarModalCrear', event => {
             $('#crearPrograma').modal('hide');
         });

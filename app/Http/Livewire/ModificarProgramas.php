@@ -61,7 +61,7 @@ class ModificarProgramas extends Component
             $this->emitTo('ver-programas','actualizarlistaprograma');
             
             // para llamar a la alerta 
-            $this->dispatchBrowserEvent('alert');
+            $this->dispatchBrowserEvent('alert', '¡Excelente!-Se ha modificado el programa satisfactoriamente-success');
         } catch (\Throwable $th) {
             //throw $th;
         }

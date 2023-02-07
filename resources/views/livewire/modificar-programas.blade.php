@@ -1,5 +1,5 @@
 <div>
-    <a href="#ModalEdit-{{$datos->id}}" data-bs-toggle="modal" style="cursor: pointer;">
+    <a href="#ModalEdit-{{$datos->id}}" data-bs-toggle="modal" style="cursor: pointer;" class="titulo">
         {{$programa->nombre}}
     </a>
     
@@ -73,14 +73,6 @@
         </form>
     </x-modal> 
     @section('script')
-    <x-alerta>
-        <x-slot name="titulo">
-            ¡Excelente!
-        </x-slot>
-        Se ha modificado el programa exitosamente
-        <x-slot name="icono">
-            success
-        </x-slot>
-    </x-alerta>
+    <x-alerta></x-alerta>
     @endsection
 </div>
