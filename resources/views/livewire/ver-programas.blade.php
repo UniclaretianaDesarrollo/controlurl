@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadPrograma">
     @section('seleccionmenuProgramas')
     active
     @endsection
@@ -17,7 +17,7 @@
     <div class="col-md-12">
         <div class="d-flex justify-content-between">
             <div class="flex items-center">
-                <select class="form-control">
+                <select wire:model="cantidad" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -33,7 +33,7 @@
     </div>
 
     <x-tabla>
-        @if ($programas->count())
+        @if (count($programas))
             <table class="table align-items-center mb-0">
                 <thead>
                     <tr>
@@ -144,9 +144,20 @@
                 <div class="text-center p-3">
                     <p>No hay programas registrados</p>
                 </div>
-            @else
-                <div class="text-center p-3">
-                    <p>No se encontró un programa registrado con el nombre "{{$buscar}}"</p>
+            @else 
+                <div class="text-center p-3" wire:loading.remove wire:target="loadPrograma">
+                    <p>No se encontró un programa coincidente</p>
+                </div>
+
+                <div class="d-flex justify-content-center p-5" wire:loading.remove wire:target="loadPrograma">
+                    {{-- <div class="loading2">
+                        <hr/><hr/><hr/><hr/>
+                    </div> --}}
+                    <div class="load-1">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
                 </div>
             @endif
         @endif

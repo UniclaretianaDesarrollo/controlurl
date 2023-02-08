@@ -12,10 +12,20 @@ class VerProgramas extends Component
     // para que agregue los estilos a la paginacion
     protected $paginationTheme = 'bootstrap';
 
-    public $buscar, $programa;
+    public $buscar = '';
+    public $programa;
     public $variableOrdenar = "id";
     public $tipoOrden = "desc";
+    public $cantidad = '10';
+    public $load = false;
 
+    // para pasar parametros por url
+    protected $queryString = [
+        'buscar' =>['except' => ''],
+        'variableOrdenar' =>['except' => 'id'],
+        'tipoOrden' =>['except' => 'desc'],
+        'cantidad' =>['except' => '10'],
+    ];
     // para escuchra eventos desde js tenemos que recibirlos en los listener, por esto, vamos a poner el cambiarEstado
     protected $listeners = [
         'actualizarlistaprograma' => 'render',
@@ -25,14 +35,23 @@ class VerProgramas extends Component
     
     public function render()
     {
-        $programas = programas::where('nombre', 'like', '%'.$this->buscar . '%')
-        ->orWhere('nombreAbreviado', 'like', '%'.$this->buscar . '%')
-        ->orderBy($this->variableOrdenar, $this->tipoOrden)
-        ->paginate(10);
+        if ($this->load) {
+            $programas = programas::where('nombre', 'like', '%'.$this->buscar . '%')
+                ->orWhere('nombreAbreviado', 'like', '%'.$this->buscar . '%')
+                ->orderBy($this->variableOrdenar, $this->tipoOrden)
+                ->paginate($this->cantidad);
+        } else {
+            $programas = [];
+        }
+        
         $vacio=empty(programas::count());
         return view('livewire.ver-programas', compact("programas", "vacio"));
     }
 
+    public function loadPrograma()
+    {
+        $this->load = true;
+    }
 
     public function ordenar ($variable) {
         if ($this->variableOrdenar == $variable) {
