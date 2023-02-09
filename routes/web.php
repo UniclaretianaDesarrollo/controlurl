@@ -19,7 +19,8 @@ use App\Http\Livewire\VerProgramas;
 // // Route::get('/', function () {
 // //     return view('layouts.app');
 // // });
-Route::get('/programas', VerProgramas::class)->name('programas.index');
+Route::get('/programas', VerProgramas::class);
+Route::get('/', VerProgramas::class);
 
 //programas
 // Route::get('/programas', [programasController::class, 'index'])->name('programas.index');
